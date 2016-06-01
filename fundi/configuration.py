@@ -13,6 +13,7 @@ import sys
 import ConfigParser
 from collections import defaultdict
 
+
 def configure_runtime(infile):
     """Parse the configuration settings from a file
     :param infile: input filename

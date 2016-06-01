@@ -1,7 +1,7 @@
 """
-.. module:: raxml
+.. module:: FunDi
    :platform: Unix, OSX
-   :synopsis: A module containing all appropriate methods for fundi function
+   :synopsis: A module containing all appropriate methods for FunDI2 function
    into additional formats.
 
 .. moduleauthor:: Daniel Gaston <daniel.gaston@dal.ca>
