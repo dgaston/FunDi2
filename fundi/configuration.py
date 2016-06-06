@@ -32,21 +32,22 @@ def configure_runtime(infile):
         sys.exit()
 
     try:
-        config.options('resources')
+        config.options('subgroups')
     except ConfigParser.NoSectionError:
-        sys.stderr.write("No section: resources in file\n")
+        sys.stderr.write("No section: subgroups in file\n")
         sys.exit()
 
     # Set all options specified in file
     for option in config.options('settings'):
-            configuration[option] = config.get('settings', option)
+        configuration[option] = config.get('settings', option)
 
-    for resource in config.options('resources'):
-            configuration[resource] = config.get('resources', resource)
+    for subgroup in config.options('subgroups'):
+        taxon_string = config.get('subgroups', subgroup)
+        configuration[subgroup] = taxon_string.split()
 
     # Configure individual tools
     for section in config.sections():
-        if section != 'settings' and section != 'resources':
+        if section != 'settings' and section != 'subgroups':
             tool = section
             options = config.options(tool)
             tool_dict = dict()

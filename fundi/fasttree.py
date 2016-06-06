@@ -20,8 +20,8 @@ def fasttree(config):
 
     logfile = "{}.fasttree.log".format(config['run_name'])
 
-    command = ("{}".format(config['fasttree']['bin'])
-               )
+    command = ["{}".format(config['fasttree']['bin'])
+               ]
 
     fundi.run_and_log_command(" ".join(command), logfile)
 

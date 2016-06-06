@@ -20,8 +20,8 @@ def raxml(config):
 
     logfile = "{}.raxml.log".format(config['run_name'])
 
-    command = ("{}".format(config['raxml']['bin'])
-               )
+    command = ["{}".format(config['raxml']['bin'])
+               ]
 
     fundi.run_and_log_command(" ".join(command), logfile)
 

@@ -20,8 +20,8 @@ def iqtree(config):
 
     logfile = "{}.iqtree.log".format(config['run_name'])
 
-    command = ("{}".format(config['iqtree']['bin'])
-               )
+    command = ["{}".format(config['iqtree']['bin'])
+               ]
 
     fundi.run_and_log_command(" ".join(command), logfile)
 

@@ -20,8 +20,8 @@ def qmmraxml(config):
 
     logfile = "{}.qmmraxml.log".format(config['run_name'])
 
-    command = ("{}".format(config['qmmraxml']['bin'])
-               )
+    command = ["{}".format(config['qmmraxml']['bin'])
+               ]
 
     fundi.run_and_log_command(" ".join(command), logfile)
 
