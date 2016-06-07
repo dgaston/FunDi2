@@ -13,6 +13,7 @@ import sys
 import subprocess as sub
 
 from Bio import AlignIO
+from Bio import MultipleSeqAlignment
 from subgroup import Subgroup
 
 
@@ -66,28 +67,43 @@ def parse_subgroups(tree, config, alignment, subtrees, subgroups):
                     ok = False
 
             if ok:
-                # Check, may need something here to set the ancestral node as a root node
-                # May need to create a new tree object
-                # Create new subtree instance
-                # Create and associate subgroup alignment file
-                # Write the subgroup tree file
-                Subgroup.create()
                 subtree = ancestor.detach()
-                subtrees.append(subtree)
-                with open("subtree.tre") as subtree:
+                subalignment = get_subalignment(alignment, leaf_names)
+                subgroup_id = Subgroup.create(subtree, subalignment)
+
+                with open("{}_subgroup_{}.tre".format(config['run_id'], subgroup_id)) as subtree:
                     subtree.write(ancestor.write())
+                with open("{}_subgroup_{}.phy".format(config['run_id'], subgroup_id), 'w') as out_alignfh:
+                    AlignIO.write(alignment, out_alignfh, 'phylip')
             else:
                 unpruned.append(taxon_list)
 
     # Recursive function calling
     if len(unpruned) > 1:
-        subtrees = get_subtrees(tree, config, subtrees, unpruned)
+        subtrees = parse_subgroups(tree, config, subtrees, unpruned)
     else:
         # Probably need a clean up step here to collapse any internal nodes with their only descendant(s) being
         # internal nodes
         subtrees.append(tree)
 
     return subtrees
+
+
+def get_subalignment(alignment, names):
+    """This function takes an AlignIO object and retrieves just the sequences of interest
+    :param alignment: The input alignment.
+    :type alignment: AlignIO object.
+    :param names: The list of names that comprise the subgroup of interest.
+    :type names: list.
+    """
+    records = list()
+    for record in alignment:
+        if record.id in names:
+            records.append(record)
+
+    subalign = MultipleSeqAlignment(records, annotations={"tool": "demo"})
+
+    return subalign
 
 
 def process_alignment(align_file, config):
