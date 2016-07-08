@@ -115,6 +115,8 @@ def process_alignment(align_file, config):
     :type config: dict.
     """
 
+    # This may not work. May need to nest the with opens and keep the input file open as it doesn't read it all in?
+    # Discovered this wen writing fixFAsta.py file in ddb-tools repo.
     if config['align_format'] != 'phylip':
         with open(align_file, 'r') as alignfh:
             alignment = AlignIO.parse(alignfh, config['align_format'])
