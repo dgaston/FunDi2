@@ -10,3 +10,26 @@
 """
 
 from ete3 import Tree
+
+
+def read_tree(filename):
+    tree = Tree(filename)
+
+    return tree
+
+
+def write_tree(tree, filename):
+    tree.write(outfile=filename)
+
+
+def is_monophyletic(tree, values, attr):
+
+    return tree.check_monophyly(values=values, target_attr=attr, ignore_missing=True)
+
+
+def parse_subtree(tree, node_list):
+    node = tree.get_common_ancestor(node_list)
+
+    subtree = node.detach()
+
+    return subtree

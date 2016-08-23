@@ -18,7 +18,7 @@ from subgroup import Subgroup
 
 
 def run_and_log_command(command, logfile):
-    """This function uses the python subprocess method to run the specified command and writes all error to the
+    """This function uses the python subprocess method to run the specified command and writes ant error(s) to the
     specified logfile
     :param command: The command-line command to execute.
     :type command: str.
